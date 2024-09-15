@@ -27,7 +27,7 @@ def get_lemmebuild_response(input):
 
 st.set_page_config(page_title="Smart Buddy")
 
-st.header("I'm your study buddy, the smarter one")
+st.header("I'm your study buddy, the smarter one �")
 
 if 'history' not in st.session_state:
     st.session_state['history'] = []

@@ -8,10 +8,7 @@ load_dotenv()
 
 API_URL = "https://sad-sutherland-ecstatic.lemme.cloud/api/cca11833-2cbb-4840-a8b6-bf0b9f7137e2"
 
-
-
 def get_lemmebuild_response(input):
-    
     data = {
         "message": input,
     }
@@ -23,7 +20,6 @@ def get_lemmebuild_response(input):
         return response_data['res']['reply']
     else:
         return f"Error: {response.status_code}, Response: {response.text}"
-
 
 st.set_page_config(page_title="Smart Buddy")
 
@@ -46,13 +42,15 @@ with col2:
                 st.write(f"**You**: {chat['input']}")
                 st.write(f"**StudyBuddy**: {chat['response']}")
 
-if submit:
+if submit and input:
     response = get_lemmebuild_response(input)
-
+    
+    # Append the input and response to history
     st.session_state['history'].append({
         'input': input,
         'response': response
     })
 
-    st.subheader("The Response is")
+    # Display the response after the button is pressed
+    st.subheader("The Response is:")
     st.write(response)

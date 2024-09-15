@@ -2,37 +2,39 @@ from dotenv import load_dotenv
 import streamlit as st
 import os
 from PIL import Image
-import google.generativeai as genai
+import requests
 
 load_dotenv()
 
-os.getenv("GOOGLE_API_KEY")
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+API_URL = "https://sad-sutherland-ecstatic.lemme.cloud/api/cca11833-2cbb-4840-a8b6-bf0b9f7137e2"
 
-def get_gemini_response(input, image):
-    model = genai.GenerativeModel('gemini-1.5-flash')
-    if input != "":
-        response = model.generate_content([input, image])
+
+
+def get_lemmebuild_response(input):
+    
+    data = {
+        "message": input,
+    }
+
+    response = requests.post(API_URL, json=data)
+    
+    if response.status_code == 200:
+        response_data = response.json()
+        return response_data['res']['reply']
     else:
-        response = model.generate_content(image)
-    return response.text
+        return f"Error: {response.status_code}, Response: {response.text}"
 
-st.set_page_config(page_title="Vision Buddy")
 
-st.header("I'm your study buddy, the one with the vision 👀")
+st.set_page_config(page_title="Smart Buddy")
+
+st.header("I'm your study buddy, the smarter one 🧠")
 
 if 'history' not in st.session_state:
     st.session_state['history'] = []
 
-input = st.text_input("What's your doubt?: ", key="input")
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+input = st.text_input("What's your doubt ?: ", key="input")
 
-image = ""
-if uploaded_file is not None:
-    image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded Image.", use_column_width=True)
-
-col1, col2 = st.columns([2, 2]) 
+col1, col2 = st.columns([3, 1])
 
 with col1:
     submit = st.button("Send")
@@ -43,16 +45,14 @@ with col2:
             for chat in st.session_state['history']:
                 st.write(f"**You**: {chat['input']}")
                 st.write(f"**StudyBuddy**: {chat['response']}")
-    if st.button("Clear History"): 
-        st.session_state['history'] = []
 
 if submit:
-    response = get_gemini_response(input, image)
-    
+    response = get_lemmebuild_response(input)
+
     st.session_state['history'].append({
         'input': input,
         'response': response
     })
-    
+
     st.subheader("The Response is")
     st.write(response)

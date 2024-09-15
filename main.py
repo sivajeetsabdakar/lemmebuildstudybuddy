@@ -32,7 +32,7 @@ st.header("I'm your study buddy, the smarter one 🧠")
 if 'history' not in st.session_state:
     st.session_state['history'] = []
 
-input = st.text_input("What's your doubt?: ", key="input")
+input = st.text_input("What's your doubt ?: ", key="input")
 
 col1, col2 = st.columns([3, 1])
 

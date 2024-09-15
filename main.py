@@ -30,7 +30,7 @@ if 'history' not in st.session_state:
 
 input = st.text_input("What's your doubt ?: ", key="input")
 
-col1, col2 = st.columns([3, 1])
+col1, col2 = st.columns([2, 2])  # Adjusted column width to make both columns equal
 
 with col1:
     submit = st.button("Send")
@@ -41,16 +41,16 @@ with col2:
             for chat in st.session_state['history']:
                 st.write(f"**You**: {chat['input']}")
                 st.write(f"**StudyBuddy**: {chat['response']}")
+    if st.button("Clear History"):  # This is placed inside col2 to ensure it shares the same width as the history expander
+        st.session_state['history'] = []
 
-if submit and input:
+if submit:
     response = get_lemmebuild_response(input)
-    
-    # Append the input and response to history
+
     st.session_state['history'].append({
         'input': input,
         'response': response
     })
 
-    # Display the response after the button is pressed
-    st.subheader("The Response is:")
+    st.subheader("The Response is")
     st.write(response)

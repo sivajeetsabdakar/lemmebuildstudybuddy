@@ -21,9 +21,9 @@ def get_lemmebuild_response(input):
     else:
         return f"Error: {response.status_code}, Response: {response.text}"
 
-st.set_page_config(page_title="Smart Buddy")
+st.set_page_config(page_title="EcoBot")
 
-st.header("I'm your study buddy, the smarter one 🧠")
+st.header("I'm EcoBot, ask anything related to sustainable development or environment")
 
 if 'history' not in st.session_state:
     st.session_state['history'] = []

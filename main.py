@@ -23,7 +23,7 @@ def get_lemmebuild_response(input):
 
 st.set_page_config(page_title="EcoBot")
 
-st.header("I'm EcoBot, do you have waste lying around and don't know what to do? Ask right away")
+st.header("I'm AstroBuddy, Please send a Hi and introduce yourself so I can help you answer all your queries!")
 
 if 'history' not in st.session_state:
     st.session_state['history'] = []

@@ -21,7 +21,7 @@ def get_lemmebuild_response(input):
     else:
         return f"Error: {response.status_code}, Response: {response.text}"
 
-st.set_page_config(page_title="EcoBot")
+st.set_page_config(page_title="AstroBuddy")
 
 st.header("I'm AstroBuddy, Please send a Hi and introduce yourself so I can help you answer all your queries!")
 
